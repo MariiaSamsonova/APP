@@ -47,28 +47,31 @@ public class SignIn extends HttpServlet {
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("Password"));
 
-		if(request.getRequestURI().contains("SignIn"))//registration
+
+		if(request.getParameter("submit").equals("CreateAccount"))//registration
 		{
+			response.getWriter().append("create");
+
 			user.setFirstName(request.getParameter("firstName"));
 			user.setLastName(request.getParameter("lastName"));
 			user.setBirthday(request.getParameter("birthday"));
 			user.setPhoneNumber(request.getParameter("phoneNumber"));
-			response.getWriter().append("registration");
-			//user.registration();
+			user.registration();
 		}
-		else
+		else if(request.getParameter("submit").equals("SignIn"))
 		{
+			response.getWriter().append("authentication");
+
 			String rightPassword = user.authentication();
 			if(!user.getPassword().equals(rightPassword))
 			{
 				response.getWriter().append("authentication failed");
 
-				//dispatcher = getServletContext().getRequestDispatcher("/error.jsp");				
+				dispatcher = getServletContext().getRequestDispatcher("/SignIn.html");
 			}
-			response.getWriter().append("authentication successed");
 
 		}
-			//dispatcher.include(request, response);
+			dispatcher.include(request, response);
 	}
 
 	/**

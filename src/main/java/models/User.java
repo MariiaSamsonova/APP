@@ -60,9 +60,14 @@ public class User {
 		this.status = status;
 	}
 	
-	public Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SYS as SYSDBA", "q");
-    }
+	public static Connection connect(){
+		try {
+			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SYS as SYSDBA", "q");
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 	
 	public void registration()
 	{
