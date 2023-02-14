@@ -33,19 +33,12 @@ public class SignIn extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User();
 		
-		request.setAttribute("user", user);
+//		request.setAttribute("user", user);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MainPage.jsp");;
-				
-//		try {
-//			Class.forName ("oracle.jdbc.driver.OracleDriver");
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MainPage.jsp");
+
 		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("Password"));
+		user.setPassword(request.getParameter("password"));
 
 
 		if(request.getParameter("submit").equals("CreateAccount"))//registration
@@ -56,22 +49,26 @@ public class SignIn extends HttpServlet {
 			user.setLastName(request.getParameter("lastName"));
 			user.setBirthday(request.getParameter("birthday"));
 			user.setPhoneNumber(request.getParameter("phoneNumber"));
+			response.getWriter().append(user.toString());
 			user.registration();
+			response.getWriter().append("created");
 		}
-		else if(request.getParameter("submit").equals("SignIn"))
+		else if(request.getParameter("submit").equals("SignIn"))//SignIn
 		{
 			response.getWriter().append("authentication");
 
 			String rightPassword = user.authentication();
+			response.getWriter().append("Right password: " + rightPassword + ".");
+
 			if(!user.getPassword().equals(rightPassword))
 			{
 				response.getWriter().append("authentication failed");
 
-				dispatcher = getServletContext().getRequestDispatcher("/SignIn.html");
+//				dispatcher = getServletContext().getRequestDispatcher("/SignIn.jsp");
 			}
 
 		}
-			dispatcher.include(request, response);
+//			dispatcher.include(request, response);
 	}
 
 	/**

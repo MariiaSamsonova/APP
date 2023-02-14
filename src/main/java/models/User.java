@@ -64,15 +64,29 @@ public class User {
 		try {
 			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SYS as SYSDBA", "q");
 		} catch (SQLException e) {
-			System.out.println(e);
-			return null;
+			throw new Error("Problem", e);
 		}
 	}
-	
+
+	public void delete()
+	{
+		String sql = "DELETE FROM utilizer WHERE email = '" + this.email +"'";
+
+		Connection conn;
+		PreparedStatement pstmt;
+		try {
+			conn = User.connect();
+			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			throw new Error(e);
+		}
+	}
+
 	public void registration()
 	{
 		String sql ="INSERT INTO utilizer (first_name, second_name, birthay, email, phone_number, password, status)" + " VALUES (?, ?, ?, ?, ?, ?, ?)";
-		Connection conn;
+		Connection conn = null;
 		PreparedStatement pstmt;
 		try {
 			conn = connect();
@@ -92,17 +106,18 @@ public class User {
 		    pstmt.setString(5, this.phoneNumber);
 		    pstmt.setString(6, this.password);
 		    pstmt.setString(7, this.status);
+			System.out.println(pstmt.toString());
 		    pstmt.executeUpdate();
 		}
 		catch(SQLException ex) {
-		    throw new Error("Problem", ex);
+		    throw new Error(ex);
 		}
 		
 	}
 	
 	    public String authentication()
 	    {
-	    	 String sql = "SELECT password FROM Users WHERE login = '" + email +"'";
+	    	 String sql = "SELECT password FROM utilizer WHERE email = '" + email +"'";
 
 	    	 Connection conn;
 				PreparedStatement pstmt;
@@ -111,7 +126,7 @@ public class User {
 					 pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 				} catch (SQLException e) {
-					throw new Error("Problem", e);
+					throw new Error( e);
 				}
 	    	 
 				String user_password = "";
@@ -124,5 +139,11 @@ public class User {
 				}
  	            return user_password;
 	    }
+
+		@Override
+		public String toString(){
+			return this.email;
+		}
+
 
 }
