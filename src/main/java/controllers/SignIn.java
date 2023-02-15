@@ -40,10 +40,16 @@ public class SignIn extends HttpServlet {
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+
 
 		if(request.getParameter("submit").equals("CreateAccount"))//registration
 		{
-			response.getWriter().append("create");
+			response.getWriter().append("create for ");
 
 			user.setFirstName(request.getParameter("firstName"));
 			user.setLastName(request.getParameter("lastName"));
