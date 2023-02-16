@@ -1,52 +1,68 @@
-<!DOCTYPE html>
+<!DOCTYPE html>>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-<title>OnTrack</title>
+    <meta charset="ISO-8859-1">
+    <script type="text/javascript" nonce="4fcd35dff40c48aaa422bb617c5" src="//local.adguard.org?ts=1676499405142&amp;type=content-script&amp;dmn=localhost:63342&amp;pth=%2FAPP%2Fsrc%2Fmain%2Fwebapp%2FSignIn.html%3F_ijt%3Dsvm0coeinkv3iglgovo91gc1fg&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;uag="></script>
+    <script type="text/javascript" nonce="4fcd35dff40c48aaa422bb617c5" src="//local.adguard.org?ts=1676499405142&amp;name=AdGuard%20Assistant&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <title>OnTrack</title>
 
     <link rel="stylesheet" href="style.css" type="text/css">
-    
-    <script type="text/javascript">
-    
-      function showPassword() {
-        document.getElementById('pass-field').type = 'text';
-      }
-      
-      function hidePassword() {
-        document.getElementById('pass-field').type = 'password';
-      }
-    
-    </script>
-    
-    
-    
-    
-  </head>
-  <body>
-     
-     <h1 class="topName">Log in</h1>
-    <div class="dataTaking">
-        <form action='SignIn' method='POST' value="LogIn">
-        
-            <input type="text" name="email" class="first" placeholder="Email"/><br>
-            <input type="password" name="password"  class="second login" id="pass-field" placeholder="Password"/><br>
-            <i onmousedown="showPassword()" onmouseup="hidePassword()" class="far fa-eye" id="togglePassword"></i>
-            
-            <input class="logIn" type="submit" onClick="" id="submit" name="submit" value="SignIn"/>
-           
-			
-        	
-        </form>
-        
-        <ul>
-  				<li> <a href=" " id="forgotPassword">Forgot my password</a> </li>
-  				<li> <a href="CreateAccount.html" id="createAcc">Create my account</a> </li>
-		</ul>
 
-        
-        
-    </div>
-    
-  </body>
+    <script type="text/javascript">
+
+        function showPassword() {
+            document.getElementById('pass-field').type = 'text';
+        }
+
+        function hidePassword() {
+            document.getElementById('pass-field').type = 'password';
+        }
+
+    </script>
+
+
+
+
+</head>
+<body>
+
+<div class="grid-container">
+    <h1 class="hLogIn">Log in</h1>
+    <form action='SignIn' method='POST' value="LogIn" class="left grid">
+
+        <input type="text" name="email" class="first" placeholder="Email"/><br>
+        <input type="password" name="password"  class="second login" id="pass-field" placeholder="Password"/><br>
+        <!--            <i onmousedown="showPassword()" onmouseup="hidePassword()" class="far fa-eye" id="togglePassword"></i>-->
+
+        <input class="SignIn submit" type="submit" onClick="" name="submit" value="SignIn"/>
+
+        <ul>
+            <li> <a href=" " id="forgotPassword">Forgot my password</a> </li>
+        </ul>
+
+    </form>
+
+
+
+    <h1 class="hCreateAccount">Create Account</h1>
+    <form action="SignIn" method="post" class="right grid">
+        <input type="text" id="firstName" name="firstName" class="first" placeholder="First Name" required><br>
+
+        <input type="text" id="lastName" name="lastName" class="second" placeholder="Second Name" required><br>
+
+        <input type="date" id="birthday" name="birthday" class="third" placeholder="Birthday" required><br>
+
+        <input type="email" id="email" name="email" class="fourth" placeholder="Email" required><br>
+
+        <input type="tel" id="phoneNumber" name="phoneNumber" class="fifth" placeholder="Phone number" required><br>
+
+        <input type="password" id="password" name="password" class="sixth" placeholder="Password" required><br>
+
+        <input type="password" id="verifyPassword" name="verifyPassword" class="seventh" placeholder="Verify password" required><br>
+
+        <input class="create submit" type="submit" name="submit"  value="CreateAccount">
+    </form>
+</div>
+
+</body>
 </html>
