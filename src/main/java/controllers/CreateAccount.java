@@ -2,7 +2,6 @@ package controllers;
 
 import models.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
 /**
  * Servlet implementation class SignIn
  */
 @WebServlet("/SignIn")
-public class SignIn extends HttpServlet {
+public class CreateAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignIn() {
+    public CreateAccount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +30,9 @@ public class SignIn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User();
-		
+
 //		request.setAttribute("user", user);
-		
+
 //		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MainPage.jsp");
 
 		user.setEmail(request.getParameter("email"));
@@ -46,19 +44,15 @@ public class SignIn extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 
+		response.getWriter().append("create for ");
 
-
-			response.getWriter().append("authentication");
-
-			String rightPassword = user.authentication();
-			response.getWriter().append("Right password: " + rightPassword + ".");
-
-			if(!user.getPassword().equals(rightPassword))
-			{
-				response.getWriter().append("authentication failed");
-
-//				dispatcher = getServletContext().getRequestDispatcher("/SignIn.jsp");
-			}
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setBirthday(request.getParameter("birthday"));
+		user.setPhoneNumber(request.getParameter("phoneNumber"));
+		response.getWriter().append(user.toString());
+		user.registration();
+		response.getWriter().append(" created");
 
 //			dispatcher.include(request, response);
 	}
